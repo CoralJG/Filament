@@ -13,6 +13,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\RichEditor;
 
 class PostResource extends Resource
@@ -25,7 +26,7 @@ class PostResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('title')->columnSpan(2)->placeholder('Example: Macarrones'),
+                TextInput::make('title')->columnSpan(2)->placeholder('Example: Macarrones')->required(),
 				RichEditor::make('content')->columnSpan(2)
             ]);
     }
@@ -34,13 +35,14 @@ class PostResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('title')->searchable()->sortable()
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
