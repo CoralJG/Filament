@@ -13,6 +13,7 @@ return new class extends Migration {
 		Schema::create('providers', function (Blueprint $table) {
 			$table->id();
 			$table->string('name');
+			$table->string('cif');
 			$table->string('address');
 			$table->string('zip_code');
 			$table->string('location');
